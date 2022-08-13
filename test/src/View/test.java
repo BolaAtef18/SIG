@@ -42,7 +42,7 @@ public class test extends javax.swing.JFrame {
 
     private JMenuBar menuBar;
     private JMenu fileMenu;
-    private JMenuItem openMenuItem;
+    private JMenuItem loadMenuItem;
     private JMenuItem saveMenuItem;
 
 
@@ -76,25 +76,42 @@ public class test extends javax.swing.JFrame {
     private javax.swing.JTextField countTextField;
     private ItemsTable itemsTable = new ItemsTable();
 
+    private ActionsListener actionsListener = new ActionsListener(this);
+
 
     public <Items> test() {
 
 
         menuBar = new JMenuBar();
-        openMenuItem = new JMenuItem("Load File", 'L');
+        loadMenuItem = new JMenuItem("Load File", 'L');
         saveMenuItem = new JMenuItem("Save File", 'S');
-        openMenuItem.setAccelerator(KeyStroke.getKeyStroke('L', KeyEvent.ALT_DOWN_MASK));
+        loadMenuItem.setAccelerator(KeyStroke.getKeyStroke('L', KeyEvent.ALT_DOWN_MASK));
         saveMenuItem.setAccelerator(KeyStroke.getKeyStroke('S', KeyEvent.ALT_DOWN_MASK));
         ButtonGroup group = new ButtonGroup();
         fileMenu = new JMenu("File");
-        fileMenu.add(openMenuItem);
+        fileMenu.add(loadMenuItem);
         fileMenu.add(saveMenuItem);
         menuBar.add(fileMenu);
         setJMenuBar(menuBar);
 
+        loadMenuItem.addActionListener(actionsListener);
+        saveMenuItem.addActionListener(actionsListener);
+        deleteInvoiceButton.addActionListener(actionsListener);
+        createNewInvoiceButton.addActionListener(actionsListener);
+        saveButton.addActionListener(actionsListener);
+        cancelButton.addActionListener(actionsListener);
+
+
+
         createTable1();
 
         createTable2();
+    }
+    public ActionsListener getActionsListener() {
+        return actionsListener;
+    }
+    public void setActionsListener(ActionsListener actionsListener) {
+        this.actionsListener = actionsListener;
     }
 
     private void createTable1() {
